@@ -1,335 +1,682 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포트폴리오 - 웹 개발자</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --font-sans: 'Malgun Gothic', 'Noto Sans KR', sans-serif;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>강재현 | HR Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:       #080d1a;
+  --navy-mid:   #0f1929;
+  --navy-light: #162038;
+  --gold:       #c9a84c;
+  --gold-light: #e8c96b;
+  --gold-pale:  rgba(201,168,76,0.12);
+  --cream:      #f5f0e8;
+  --cream-dim:  rgba(245,240,232,0.72);
+  --cream-faint:rgba(245,240,232,0.10);
+  --text-muted: rgba(245,240,232,0.42);
+  --border:     rgba(201,168,76,0.2);
+  --tr:         cubic-bezier(0.16, 1, 0.3, 1);
+  --font-sans:  'Noto Sans KR', sans-serif;
+  --font-deco:  'Bebas Neue', cursive;
+  --font-italic:'Playfair Display', serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.1rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(8,13,26,0.78);
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.4s;
+}
+.nav-logo { font-family: var(--font-italic); font-size: 1.25rem; font-style: italic; color: var(--gold); }
+.nav-links { display: flex; gap: 2.4rem; list-style: none; }
+.nav-links a {
+  color: var(--cream-dim); text-decoration: none;
+  font-size: 0.75rem; font-weight: 400;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  transition: color 0.3s; position: relative;
+}
+.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s var(--tr); }
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+
+/* HERO */
+#hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+.hero-bg-lines { position: absolute; inset: 0; pointer-events: none; }
+.hero-bg-lines::before { content: ''; position: absolute; top: -50%; left: 60%; width: 1px; height: 200%; background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.1), transparent); transform: rotate(-15deg); }
+.hero-left { display: flex; flex-direction: column; justify-content: center; padding: 8rem 4rem 6rem 5rem; position: relative; z-index: 2; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.3s var(--tr) forwards;
+}
+.hero-tag::before { content: ''; width: 2.2rem; height: 1px; background: var(--gold); }
+.hero-name {
+  font-family: var(--font-italic);
+  font-size: clamp(3.8rem, 6.5vw, 6.5rem); font-weight: 400; font-style: italic;
+  line-height: 0.97; margin-bottom: 0.6rem;
+  opacity: 0; animation: fadeUp 0.9s 0.5s var(--tr) forwards;
+}
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.8vw, 1.5rem); font-weight: 700; color: var(--gold);
+  margin-bottom: 1.4rem; opacity: 0; animation: fadeUp 0.9s 0.6s var(--tr) forwards;
+}
+.hero-role {
+  font-size: 0.95rem; font-weight: 300; color: var(--cream-dim); line-height: 1.85;
+  max-width: 380px; margin-bottom: 3rem;
+  opacity: 0; animation: fadeUp 0.9s 0.7s var(--tr) forwards;
+}
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s 0.9s var(--tr) forwards; }
+.btn-gold { padding: 0.8rem 2rem; background: var(--gold); color: var(--navy); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+.btn-ghost { padding: 0.8rem 2rem; border: 1px solid var(--border); color: var(--cream-dim); font-size: 0.76rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-right { display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 8rem 5rem 6rem 2rem; }
+.hero-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle at center, rgba(201,168,76,0.14) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: pulse 4s ease-in-out infinite; }
+.hero-orb-ring { position: absolute; width: 400px; height: 400px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.13); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: ringExpand 3s ease-in-out infinite; }
+.floating-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; position: relative; z-index: 2; }
+.stat-card { background: var(--cream-faint); border: 1px solid var(--border); padding: 1.7rem 1.4rem; backdrop-filter: blur(10px); text-align: center; opacity: 0; animation: fadeIn 0.8s var(--tr) forwards; transition: transform 0.4s var(--tr), box-shadow 0.4s; }
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.45); }
+.stat-card:nth-child(1){animation-delay:1.0s} .stat-card:nth-child(2){animation-delay:1.2s;margin-top:2rem}
+.stat-card:nth-child(3){animation-delay:1.1s} .stat-card:nth-child(4){animation-delay:1.3s;margin-top:2rem}
+.stat-num { font-family: var(--font-deco); font-size: 2.9rem; color: var(--gold); line-height: 1; margin-bottom: 0.35rem; }
+.stat-label { font-size: 0.7rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* SECTION COMMON */
+section { position: relative; }
+.section-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; }
+.section-label::before { content: ''; width: 1.8rem; height: 1px; background: var(--gold); }
+.section-title { font-family: var(--font-sans); font-size: clamp(2.2rem, 3.5vw, 3.4rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 1.4rem; }
+.section-intro { font-size: 0.93rem; font-weight: 300; color: var(--cream-dim); line-height: 1.85; }
+
+/* ABOUT */
+#about { padding: 8rem 5rem; display: grid; grid-template-columns: 1fr 1.3fr; gap: 6rem; align-items: start; background: var(--navy-mid); }
+.about-left { position: sticky; top: 8rem; }
+.about-intro { font-size: 0.94rem; font-weight: 300; color: var(--cream-dim); line-height: 1.9; margin-bottom: 2.5rem; }
+.about-intro strong { color: var(--cream); font-weight: 700; }
+.keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 2rem; }
+.keyword-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.1rem; background: var(--cream-faint); border: 1px solid var(--border); border-left: 3px solid var(--gold); transition: all 0.3s var(--tr); cursor: default; }
+.keyword-item:hover { background: var(--gold-pale); transform: translateX(4px); }
+.kw-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+.kw-text { font-size: 0.8rem; color: var(--cream-dim); line-height: 1.4; }
+.kw-text strong { display: block; color: var(--cream); font-weight: 700; font-size: 0.85rem; margin-bottom: 2px; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.08)); }
+.timeline-item { position: relative; padding: 0 0 2.8rem 2rem; opacity: 0; transform: translateX(16px); transition: all 0.6s var(--tr); }
+.timeline-item.visible { opacity: 1; transform: translateX(0); }
+.timeline-item::before { content: ''; position: absolute; left: -4.5px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px rgba(201,168,76,0.5); }
+.timeline-item.minor::before { width: 6px; height: 6px; left: -3px; background: transparent; border: 1px solid var(--gold); box-shadow: none; }
+.tl-period { font-size: 0.7rem; font-weight: 500; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+.tl-company { font-family: var(--font-sans); font-size: 1.15rem; font-weight: 700; color: var(--cream); margin-bottom: 0.15rem; }
+.tl-role { font-size: 0.78rem; font-weight: 400; color: var(--text-muted); margin-bottom: 0.7rem; }
+.tl-desc { font-size: 0.85rem; font-weight: 300; color: var(--cream-dim); line-height: 1.78; }
+.tl-desc strong { color: var(--cream); font-weight: 700; }
+.tl-badge { display: inline-block; margin-top: 0.6rem; padding: 0.18rem 0.65rem; background: var(--gold-pale); border: 1px solid var(--border); color: var(--gold); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* METRICS */
+#metrics { padding: 7rem 5rem; background: var(--navy); overflow: hidden; }
+.metrics-header { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: end; margin-bottom: 4.5rem; }
+.metrics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1px solid var(--border); }
+.metric-block { padding: 2.8rem 2.2rem; border-right: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.4s var(--tr); }
+.metric-block:last-child { border-right: none; }
+.metric-block::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--tr); }
+.metric-block:hover::before { transform: scaleX(1); }
+.metric-block:hover { background: var(--gold-pale); }
+.metric-number { font-family: var(--font-deco); font-size: 4rem; color: var(--gold); line-height: 1; margin-bottom: 0.45rem; display: block; }
+.metric-unit { font-size: 1.6rem; color: var(--gold-light); }
+.metric-desc { font-size: 0.83rem; font-weight: 700; color: var(--cream); margin-top: 0.4rem; line-height: 1.4; }
+.metric-context { font-size: 0.72rem; font-weight: 300; color: var(--text-muted); margin-top: 0.3rem; }
+
+/* PROJECTS */
+#projects { padding: 8rem 5rem; background: var(--navy-mid); }
+.projects-intro { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; margin-bottom: 4.5rem; align-items: end; }
+.project-list { display: flex; flex-direction: column; }
+.project-item { border-top: 1px solid var(--border); padding: 2.3rem 0; display: grid; grid-template-columns: auto 1fr auto; gap: 2.2rem; align-items: start; position: relative; transition: all 0.4s var(--tr); cursor: default; }
+.project-item::after { content: ''; position: absolute; inset: 0; background: var(--gold-pale); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.project-item:hover::after { opacity: 1; }
+.project-item:last-child { border-bottom: 1px solid var(--border); }
+.project-num { font-family: var(--font-deco); font-size: 2.2rem; color: var(--border); line-height: 1; transition: color 0.3s; }
+.project-item:hover .project-num { color: var(--gold); }
+.project-title { font-family: var(--font-sans); font-size: 1.1rem; font-weight: 700; color: var(--cream); margin-bottom: 0.3rem; line-height: 1.3; }
+.project-org { font-size: 0.74rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.9rem; }
+.project-desc { font-size: 0.87rem; font-weight: 300; color: var(--cream-dim); line-height: 1.8; max-width: 620px; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; }
+.tag { padding: 0.22rem 0.75rem; background: var(--cream-faint); border: 1px solid var(--border); color: var(--gold); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.project-result { text-align: right; min-width: 110px; }
+.result-num { font-family: var(--font-deco); font-size: 2.5rem; color: var(--gold); display: block; line-height: 1; }
+.result-label { font-size: 0.68rem; font-weight: 400; color: var(--text-muted); }
+.wip-badge { display: inline-block; padding: 0.3rem 0.75rem; background: rgba(201,168,76,0.18); border: 1px solid var(--gold); color: var(--gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; animation: wip-pulse 2s ease-in-out infinite; }
+@keyframes wip-pulse { 0%,100%{opacity:1} 50%{opacity:0.45} }
+
+/* COMPETENCIES */
+#competencies { padding: 8rem 5rem; background: var(--navy); }
+.comp-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+.comp-intro { position: sticky; top: 8rem; }
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+.comp-card { padding: 1.8rem; background: var(--cream-faint); border: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.4s var(--tr); opacity: 0; transform: translateY(18px); }
+.comp-card.visible { opacity: 1; transform: translateY(0); }
+.comp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: linear-gradient(to bottom, var(--gold), transparent); transition: height 0.5s var(--tr); }
+.comp-card:hover::before { height: 100%; }
+.comp-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-3px); box-shadow: 0 24px 56px rgba(0,0,0,0.3); }
+.comp-icon { font-size: 1.6rem; margin-bottom: 0.85rem; display: block; }
+.comp-title { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; color: var(--cream); margin-bottom: 0.6rem; line-height: 1.25; }
+.comp-desc { font-size: 0.82rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; }
+
+/* STRENGTHS */
+#tools { padding: 6rem 5rem; background: var(--navy-light); border-top: 1px solid var(--border); }
+.tools-layout { display: grid; grid-template-columns: 1fr 3fr; gap: 5rem; align-items: start; }
+.tool-categories { display: flex; flex-direction: column; gap: 2.8rem; }
+.tool-cat-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; }
+.tool-pills { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.tool-pill { padding: 0.42rem 1rem; border: 1px solid var(--border); color: var(--cream-dim); font-size: 0.8rem; font-weight: 400; transition: all 0.3s; }
+.tool-pill:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-pale); }
+
+/* FOOTER */
+footer { padding: 3.5rem 5rem; background: #04080f; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+.footer-name { font-family: var(--font-italic); font-size: 1.4rem; color: var(--gold); font-style: italic; }
+.footer-contact { display: flex; flex-direction: column; gap: 0.35rem; text-align: right; }
+.footer-contact a { color: var(--cream-dim); text-decoration: none; font-size: 0.83rem; font-weight: 300; transition: color 0.3s; }
+.footer-contact a:hover { color: var(--gold); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: all 0.8s var(--tr); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ANIMATIONS */
+@keyframes fadeUp  { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn  { from{opacity:0;transform:scale(0.96)} to{opacity:1;transform:scale(1)} }
+@keyframes pulse   { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6} 50%{transform:translate(-50%,-50%) scale(1.05);opacity:.9} }
+@keyframes ringExpand { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.13} 50%{transform:translate(-50%,-50%) scale(1.08);opacity:.04} }
+@keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+
+::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-track{background:var(--navy)} ::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  #hero{grid-template-columns:1fr} .hero-right{display:none}
+  #about{grid-template-columns:1fr} .about-left{position:static}
+  nav{padding:1rem 2rem} .nav-links{gap:1.4rem}
+  #metrics,#projects,#about,#competencies,#tools{padding:5rem 2rem}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .metric-block{border-right:none;border-bottom:1px solid var(--border)}
+  .comp-layout{grid-template-columns:1fr} .comp-intro{position:static}
+  .tools-layout{grid-template-columns:1fr}
+  .metrics-header,.projects-intro{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center} .footer-contact{text-align:center}
+}
+@media(max-width:700px){
+  .hero-left{padding:7rem 1.5rem 4rem} .nav-links{display:none}
+  .metrics-grid,.comp-grid{grid-template-columns:1fr}
+  .project-item{grid-template-columns:auto 1fr} .project-result{display:none}
+  .keyword-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
-    <!-- 네비게이션 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>Portfolio</h2>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">홈</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">소개</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">기술</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">프로젝트</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">연락처</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+
+<nav>
+  <div class="nav-logo">강재현</div>
+  <ul class="nav-links">
+    <li><a href="#about">경력</a></li>
+    <li><a href="#metrics">성과</a></li>
+    <li><a href="#projects">프로젝트</a></li>
+    <li><a href="#competencies">역량</a></li>
+    <li><a href="#tools">강점</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-left">
+    <div class="hero-tag">HR Strategist · 총 경력 13년 2개월</div>
+    <h1 class="hero-name">강재현</h1>
+    <div class="hero-subtitle">현장에서 제도를 만드는 HR 전문가</div>
+    <p class="hero-role">
+      인사기획 · 노무 컴플라이언스 · 조직문화 · 성과관리까지<br>
+      다양한 업종의 현장 경험을 바탕으로 실효성 있는 HR 제도를 설계합니다.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-gold">주요 프로젝트</a>
+      <a href="#about" class="btn-ghost">경력 타임라인</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-orb"></div>
+    <div class="hero-orb-ring"></div>
+    <div class="floating-stats">
+      <div class="stat-card">
+        <div class="stat-num">13<span style="font-family:'Noto Sans KR';font-size:1.1rem;font-weight:700">년+</span></div>
+        <div class="stat-label">HR 실무 경력</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">7</div>
+        <div class="stat-label">근무 회사 수</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">30<span style="font-family:'Noto Sans KR';font-size:1.1rem;font-weight:700">+</span></div>
+        <div class="stat-label">노무 진정 대응</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">업종 경험</div>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- ABOUT / TIMELINE -->
+<section id="about">
+  <div class="about-left">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">경력<br>타임라인</h2>
+    <p class="about-intro reveal">
+      <strong>2012년 9월부터 현재(2026년 3월)까지</strong><br>
+      금융·서비스·IT·게임·HR플랫폼·제조업에 걸쳐<br>
+      HR 풀사이클을 직접 수행해 왔습니다.<br><br>
+      법무 현장에서 출발해 인사기획·노무·조직문화로
+      영역을 확장한 Bottom-up 실무 전문가입니다.
+    </p>
+    <div class="keyword-grid reveal">
+      <div class="keyword-item"><span class="kw-icon">📋</span><div class="kw-text"><strong>인사기획 · 제도설계</strong>직급·평가·보상 전 영역</div></div>
+      <div class="keyword-item"><span class="kw-icon">🛡️</span><div class="kw-text"><strong>노무 컴플라이언스</strong>근로감독 지적 0건 달성</div></div>
+      <div class="keyword-item"><span class="kw-icon">🎯</span><div class="kw-text"><strong>OKR · 성과관리</strong>OutCome 관점 목표 설계</div></div>
+      <div class="keyword-item"><span class="kw-icon">🤝</span><div class="kw-text"><strong>노사관계 · 조직문화</strong>임금교섭·협의회 운영</div></div>
+      <div class="keyword-item"><span class="kw-icon">🎮</span><div class="kw-text"><strong>조직 재설계</strong>게이미피케이션 기반</div></div>
+      <div class="keyword-item"><span class="kw-icon">🤖</span><div class="kw-text"><strong>AI 디지털 전환</strong>온보딩 자동화 구축</div></div>
+    </div>
+  </div>
+
+  <!-- 타임라인: 과거 → 현재 -->
+  <div class="timeline reveal">
+
+    <div class="timeline-item">
+      <div class="tl-period">2012.09 – 2014.09 &nbsp;(2년)</div>
+      <div class="tl-company">현대캐피탈</div>
+      <div class="tl-role">Collection 지역팀 · 사원 · 법무(민사소송·형사고소)</div>
+      <div class="tl-desc">
+        민사소송·형사고소·채권추심 실무 수행. <strong>일 평균 소장 10건 접수, 승소율 98%.</strong>
+        현장 법무 경험을 통해 비즈니스 흐름과 HR 제도 간 연결고리를 체득.
+        이후 인사 경력 전반의 실무적 토대가 됨.
+      </div>
+      <span class="tl-badge">금융 · 법무 · 송무</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-period">2014.12 – 2017.12 &nbsp;(3년)</div>
+      <div class="tl-company">웰컴금융그룹 (웰컴크레디라인대부)</div>
+      <div class="tl-role">인사팀 · 계장 · 노무·채용·인사기획</div>
+      <div class="tl-desc">
+        <strong>웰컴크레디라인대부 외 6개 법인 취업규칙 전면 제·개정 및 고용노동부 신고 완료.</strong>
+        해외주재원 관리규정 최초 제정. 근로기준법 정합성 전면 검토 및 규정 개정.
+        <strong>2015~2016년 연 2회 공채(회당 약 100명 채용)</strong>, OJT 기획·운영.
+        지점 직접 근무(채권추심·대출 약 2개월) → 직군별 역량 차이 파악
+        → 평가그룹 분리, 직군별 인사평가·보상체계 재설계.
+      </div>
+      <span class="tl-badge">금융 · 인사기획 · 노무 · 채용</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-period">2018.01 – 2022.06 &nbsp;(4년 5개월)</div>
+      <div class="tl-company">코오롱 엘에스아이</div>
+      <div class="tl-role">인사총무팀 · G4 · 인사기획·노무·법무</div>
+      <div class="tl-desc">
+        매출 975억·사원 980명 규모. 호텔·리조트·식음 서비스 HR 전담.
+        <strong>2019년 청원형 근로감독(본사+지사 4곳) 대응</strong>: 연장근로수당 약 2,000만원 시정 후
+        자체점검 체크리스트 수립, 연 1회 자체 근로감독 제도화.
+        <strong>2022년 정기 근로감독: 위반·지적 0건 달성.</strong>
+        진정 약 30건(연장근로수당·갱신기대권·직장내괴롭힘·불법파견·성희롱 등) 전건 대응.
+        연장근로수당 소송 <strong>2억 4천만원 청구 → 900만원 조정 종결 (96% 절감).</strong>
+        BSC 기반 성과관리 재설계: 매출·이익률·프로세스개선 3요소로 목표 전환.
+        직책자 OutCome / 팀원 OutPut 이원화 적용.
+        경주 코오롱호텔 현장 밀착 출장 → 홀서빙·식음 직군 체크리스트형 수시평가 도입.
+        노사협의회(엘에스아이·엠오디) 신설·간사, 사내소통 채널 신규 운영.
+      </div>
+      <span class="tl-badge">서비스·호텔 · 인사기획 · 노무 · 법무</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-period">2022.06 – 2023.02 &nbsp;(9개월)</div>
+      <div class="tl-company">웹젠</div>
+      <div class="tl-role">조직문화팀 · 선임 · 노무관리·조직문화</div>
+      <div class="tl-desc">
+        매출 2,827억·사원 860명 규모 게임사 (계열사 4개사).
+        <strong>IT위원회 임금교섭 위원 참여</strong>: 동행전략 기반 임금교섭(안) 직접 작성.
+        <strong>웹젠온네트·웹젠노바 2개 계열사 노사협의회·산업안전보건위원회 간사</strong>.
+        단체협약 분석 → 지회장 연봉인상 요구 공문 대응.
+        조합사무실 임대차계약 체결, 근로자위원 예상 요구조건 사전 파악·검토 체계 수립.
+      </div>
+      <span class="tl-badge">게임·IT · 노무 · 노사관계</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-period">2023.06 – 2025.01 &nbsp;(1년 7개월)</div>
+      <div class="tl-company">인크루트</div>
+      <div class="tl-role">인사팀 · 팀장대행 · 인사기획·조직관리</div>
+      <div class="tl-desc">
+        매출 333억·사원 270명 HR 플랫폼. 인사팀장대행으로 HR 전 영역 총괄.
+        <strong>직급체계 신설</strong>: 전 Grade 5단계 구성, 직급별 역할 정의 및 승진제도 수립.
+        <strong>Pay-Band 설계</strong>: 혼합전략(동행+추종) 기반 3개년 임금 시뮬레이션 수립.
+        성과평가 개편: 성과+역량 이원화, <strong>표준편차 활용 상대평가 도입.</strong>
+        저성과자 4등급 분류·분기별 교육 프로그램 운영.
+        Target Incentive 제도 도입으로 목표 달성 동기 체계 구축.
+      </div>
+      <span class="tl-badge">HR 플랫폼 · 인사기획 · 보상설계</span>
+    </div>
+
+    <div class="timeline-item minor">
+      <div class="tl-period">2023.06 – 현재 &nbsp;(병행 활동)</div>
+      <div class="tl-company">좋은인재연구소</div>
+      <div class="tl-role">HR 컨설턴트 (병행)</div>
+      <div class="tl-desc">
+        <strong>취업준비생 대상 1:1 진로 컨설팅 및 취업캠프 기획·운영.</strong>
+        이력서·자기소개서 첨삭, 면접 코칭, 직무역량 설계 지원.
+        <strong>인사담당자 대상 강의</strong>: 노무관리 실무, 인사기획 방법론, 성과관리 체계 구축 등.
+        현직 HR 실무 경험을 바탕으로 이론과 현장을 연결하는 교육 콘텐츠 제공.
+      </div>
+      <span class="tl-badge">컨설팅 · 취업캠프 · 강의</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-period">2025.01 – 현재 &nbsp;(1년 2개월 · 재직중)</div>
+      <div class="tl-company">우성</div>
+      <div class="tl-role">인사팀 · 재직중 · 인사기획·조직관리·디지털전환</div>
+      <div class="tl-desc">
+        사료 제조업 기반 그룹사 HR 담당.
+        <strong>OKR 및 성과관리 고도화</strong>: OutCome 관점 목표 체계 전사 확산, 분기 단위 리뷰·피드백 사이클 구축.
+        <strong>게이미피케이션 기반 조직 재설계</strong>: 레벨업·퀘스트·리워드 메커니즘을 조직에 접목,
+        구성원 자발적 몰입과 역할 명확화를 동시 달성.
+        <strong>AI 기술 활용 디지털 온보딩 구축</strong>: AI 기반 FAQ 자동응답, 적응 체크포인트 알림,
+        멘토 매칭 연동으로 HR 반복 업무 자동화 및 신입 구성원 경험(EX) 개선.
+      </div>
+      <span class="tl-badge">제조·식품 · 인사기획 · 조직설계 · 디지털전환</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- METRICS -->
+<section id="metrics">
+  <div class="metrics-header">
+    <div>
+      <div class="section-label reveal">Impact</div>
+      <h2 class="section-title reveal">숫자로<br>말하는 성과</h2>
+    </div>
+    <p class="section-intro reveal">
+      현장 이해를 바탕으로 설계한 HR 제도는 측정 가능한 결과로 이어집니다.
+      컴플라이언스 개선, 비용 절감, 제도 정비—모두 실제 업무에서 도출된 성과입니다.
+    </p>
+  </div>
+  <div class="metrics-grid reveal">
+    <div class="metric-block">
+      <span class="metric-number"><span class="counter" data-target="96">0</span><span class="metric-unit">%</span></span>
+      <div class="metric-desc">소송 청구액 절감</div>
+      <div class="metric-context">2.4억 → 900만원 조정 종결 / 코오롱LSI</div>
+    </div>
+    <div class="metric-block">
+      <span class="metric-number"><span class="counter" data-target="30">0</span><span class="metric-unit">+건</span></span>
+      <div class="metric-desc">노무 진정·소송 직접 대응</div>
+      <div class="metric-context">코오롱LSI 재직 4년 5개월간</div>
+    </div>
+    <div class="metric-block">
+      <span class="metric-number">0<span class="metric-unit">건</span></span>
+      <div class="metric-desc">정기 근로감독 지적</div>
+      <div class="metric-context">2022년 코오롱LSI 정기감독 수검</div>
+    </div>
+    <div class="metric-block">
+      <span class="metric-number"><span class="counter" data-target="7">0</span><span class="metric-unit">개사</span></span>
+      <div class="metric-desc">취업규칙 제·개정 법인</div>
+      <div class="metric-context">웰컴금융그룹 전 계열사</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-intro">
+    <div>
+      <div class="section-label reveal">Projects</div>
+      <h2 class="section-title reveal">주요<br>프로젝트</h2>
+    </div>
+    <p class="section-intro reveal">
+      인사팀 실무를 중심으로 제도 설계·노무관리·조직 운영까지
+      각 조직의 현실에 맞는 HR 솔루션을 직접 기획하고 실행해 왔습니다.
+    </p>
+  </div>
+  <div class="project-list reveal">
+
+    <div class="project-item">
+      <div class="project-num">01</div>
+      <div class="project-body">
+        <h3 class="project-title">OKR·성과관리 고도화 및 게이미피케이션 기반 조직 재설계</h3>
+        <div class="project-org">우성 · 2025 – 현재</div>
+        <p class="project-desc">
+          OutCome 관점의 OKR 목표 체계를 전사로 확산하고 분기 단위 리뷰·피드백 사이클 구축.
+          게임 메커니즘(레벨업·퀘스트·리워드)을 조직 구조에 접목,
+          구성원 자발적 몰입과 역할 명확화를 동시 달성. 직급 단순화 및 역할 기반 팀 전환.
+        </p>
+        <div class="project-tags"><span class="tag">OKR</span><span class="tag">성과관리</span><span class="tag">게이미피케이션</span><span class="tag">조직설계</span></div>
+      </div>
+      <div class="project-result"><span class="result-num">OKR</span><span class="result-label">전사 도입</span></div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">02</div>
+      <div class="project-body">
+        <h3 class="project-title">AI 기술 활용 디지털 온보딩 구축</h3>
+        <div class="project-org">우성 · 2025 – 현재</div>
+        <p class="project-desc">
+          신규 입사자 온보딩 프로세스 디지털 전환.
+          AI 기반 FAQ 자동응답, 적응 체크포인트 자동 알림, 멘토 매칭 플랫폼 연동.
+          HR 담당자 반복 업무를 자동화하고 신입 구성원 경험(EX)을 구조적으로 개선.
+        </p>
+        <div class="project-tags"><span class="tag">AI</span><span class="tag">디지털 온보딩</span><span class="tag">자동화</span><span class="tag">EX</span></div>
+      </div>
+      <div class="project-result"><span class="wip-badge">진행중</span></div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">03</div>
+      <div class="project-body">
+        <h3 class="project-title">직급체계 신설 및 Pay-Band 3개년 임금 시뮬레이션</h3>
+        <div class="project-org">인크루트 · 2023 – 2025</div>
+        <p class="project-desc">
+          전 직급 Grade 5단계 신설, 직급별 역할 정의 및 승진제도 수립.
+          동행전략+추종전략 혼합 방식으로 Pay-Band 구성, 3개년 임금 시뮬레이션 수립.
+          성과평가 성과+역량 이원화 및 표준편차 기반 상대평가 도입.
+          저성과자 4등급 분류·분기별 관리 프로그램 및 Target Incentive 연계.
+        </p>
+        <div class="project-tags"><span class="tag">직급체계</span><span class="tag">Pay-Band</span><span class="tag">보상설계</span><span class="tag">성과평가</span></div>
+      </div>
+      <div class="project-result"><span class="result-num">5단계</span><span class="result-label">직급 신설</span></div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">04</div>
+      <div class="project-body">
+        <h3 class="project-title">정기 근로감독 지적 0건 — 컴플라이언스 체계 재구축</h3>
+        <div class="project-org">코오롱 엘에스아이 · 2019 – 2022</div>
+        <p class="project-desc">
+          2019년 청원형 근로감독(본사+지사 4곳) 대응 후 자체점검 체크리스트 수립, 연 1회 시행 제도화.
+          진정 약 30건(연장근로수당·갱신기대권·직장내괴롭힘·불법파견·성희롱 등) 전건 대응 완료.
+          2022년 정기 근로감독 수검 결과 위반·지적 사항 0건 달성.
+        </p>
+        <div class="project-tags"><span class="tag">근로감독</span><span class="tag">컴플라이언스</span><span class="tag">노무관리</span><span class="tag">자체점검</span></div>
+      </div>
+      <div class="project-result"><span class="result-num">0건</span><span class="result-label">정기감독 지적</span></div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">05</div>
+      <div class="project-body">
+        <h3 class="project-title">7개 법인 취업규칙 제·개정 및 직군별 평가체계 설계</h3>
+        <div class="project-org">웰컴금융그룹 · 2014 – 2017</div>
+        <p class="project-desc">
+          웰컴크레디라인대부 외 6개 법인 취업규칙 전면 제·개정 및 고용노동부 신고 완료.
+          해외주재원 관리규정 최초 제정, 근로기준법 정합성 전면 검토.
+          지점 현장 직접 수행(채권추심·대출 약 2개월) → 직군별 역량 차이 파악
+          → 평가그룹 분리, 직군별 인사평가·보상체계 재설계.
+        </p>
+        <div class="project-tags"><span class="tag">취업규칙</span><span class="tag">인사기획</span><span class="tag">노무관리</span><span class="tag">채용</span></div>
+      </div>
+      <div class="project-result"><span class="result-num">7개사</span><span class="result-label">법인 규정 정비</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPETENCIES -->
+<section id="competencies">
+  <div class="comp-layout">
+    <div class="comp-intro">
+      <div class="section-label reveal">Competencies</div>
+      <h2 class="section-title reveal">핵심<br>역량</h2>
+      <p class="section-intro reveal" style="margin-top:1rem">
+        현장 이해 → 제도 설계 → 구성원 소통 → 정착의
+        선순환 구조를 만드는 것이 저의 HR 철학입니다.
+      </p>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-card"><span class="comp-icon">📋</span><div class="comp-title">인사기획 · 제도설계</div><p class="comp-desc">직급체계 신설, Pay-Band 설계, 승진·평가·보상제도 전 영역 기획. 표준편차 상대평가·Target Incentive 실무 적용.</p></div>
+      <div class="comp-card"><span class="comp-icon">🛡️</span><div class="comp-title">노무 컴플라이언스</div><p class="comp-desc">근로감독 지적 0건. 진정 30+건 전건 대응. 근로기준법·파견법·산업안전보건법 실무. 취업규칙 7개사 제·개정.</p></div>
+      <div class="comp-card"><span class="comp-icon">🎯</span><div class="comp-title">성과관리 · OKR</div><p class="comp-desc">BSC → OutCome/OutPut 이원화. 직책자 Outcome·팀원 Output 분리 적용. 저성과자 4등급 분기 관리 프로그램 운영.</p></div>
+      <div class="comp-card"><span class="comp-icon">🤝</span><div class="comp-title">노사관계 · 조직문화</div><p class="comp-desc">IT위원회 임금교섭 위원 참여. 노사협의회 신설·간사(4개사). 단체협약 분석 및 조합 요구 대응. 사내소통채널 운영.</p></div>
+      <div class="comp-card"><span class="comp-icon">🎮</span><div class="comp-title">조직 재설계 · 게이미피케이션</div><p class="comp-desc">게임 메커니즘(레벨업·퀘스트·리워드) 조직 적용. 구성원 자발적 몰입 설계. 직급 단순화, 역할 기반 팀 전환.</p></div>
+      <div class="comp-card"><span class="comp-icon">🔍</span><div class="comp-title">현장 밀착 HR</div><p class="comp-desc">지점 직접 수행(채권추심·대출 2개월). 호텔 현장 출장 밀착 지원. 현장 체감 → 직군별 맞춤 제도 설계 Bottom-up 방식.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRENGTHS -->
+<section id="tools">
+  <div class="tools-layout">
+    <div>
+      <div class="section-label reveal">Strengths</div>
+      <h2 class="section-title reveal" style="font-size:2.2rem">HR 실무<br>강점</h2>
+    </div>
+    <div class="tool-categories reveal">
+      <div>
+        <div class="tool-cat-title">인사기획 실무 역량</div>
+        <div class="tool-pills">
+          <span class="tool-pill">직급·승진체계 설계</span>
+          <span class="tool-pill">Pay-Band·임금 시뮬레이션</span>
+          <span class="tool-pill">성과·역량 평가 설계</span>
+          <span class="tool-pill">채용·OJT 기획</span>
+          <span class="tool-pill">취업규칙 제·개정</span>
         </div>
-    </nav>
-
-    <!-- 메인 섹션 -->
-    <main>
-        <!-- 홈 섹션 -->
-        <section id="home" class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title">
-                        리스크 관리에서 성과 중심의 <span class="highlight">디지털 HR</span>까지,
-                    </h1>
-                    <h2 class="hero-subtitle">
-                        비즈니스의 성장을 설계하는 HR 전략가입니다.
-                    </h2>
-                    <p class="hero-description">
-                        14년의 법무·노무 전문성과 스타트업의 기민한 인사 기획력을 결합하여,
-                        중견기업의 체질 개선과 수익성 극대화를 이끌어냅니다.
-                    </p>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">20%</div>
-                            <div class="stat-label">운영 효율성 향상</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">75%</div>
-                            <div class="stat-label">소송 방어율</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">조직문화 참여율</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">Zero</div>
-                            <div class="stat-label">법적 분쟁 리스크</div>
-                        </div>
-                    </div>
-                    <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">주요 프로젝트 보기</a>
-                        <a href="#contact" class="btn btn-secondary">전략 상담하기</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="hr-visual">
-                        <div class="hr-icon">👥</div>
-                        <div class="hr-subtitle">HR STRATEGIST</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 연락처 섹션 -->
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2 class="section-title">연락처</h2>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <h3>함께 프로젝트를 만들어요!</h3>
-                        <p>새로운 기회와 협업을 항상 환영합니다.</p>
-                        <div class="contact-details">
-                            <div class="contact-item">
-                                <span class="contact-icon">📧</span>
-                                <span>kjh870704@naver.com</span>
-                            </div>
-                            <div class="contact-item">
-                                <span class="contact-icon">📱</span>
-                                <span>+82 10-1234-5678</span>
-                            </div>
-                            <div class="contact-item">
-                                <span class="contact-icon">📍</span>
-                                <span>서울, 대한민국</span>
-                            </div>
-                        </div>
-                    </div>
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <input type="text" placeholder="이름" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="이메일" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="메시지" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">메시지 보내기</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- 소개 섹션 -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2 class="section-title">HR 전략가 소개</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>
-                            규제(Compliance)를 넘어 효율(Efficiency)을 만들고, 효율을 넘어 보상(Reward)의 선순환을 만드는 HR 전략가입니다.
-                            14년간의 법무·노무 전문성과 스타트업의 기민한 인사 기획력을 결합하여 조직의 체질 개선을 이끌어냅니다.
-                        </p>
-                        <p>
-                            데이터 기반의 Strategic Workforce Planning을 통해 단순한 비용 절감을 넘어,
-                            성과급 재원 확보와 조직 로열티 강화라는 가치 창출을 실현해왔습니다.
-                        </p>
-                        <div class="about-info">
-                            <div class="info-item">
-                                <span class="info-label">전문 분야:</span>
-                                <span class="info-value">HR 전략 & 노무 컴플라이언스</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">이메일:</span>
-                                <span class="info-value">kjh870704@naver.com</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">위치:</span>
-                                <span class="info-value">서울, 대한민국</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 기술 섹션 -->
-        <section id="skills" class="skills">
-            <div class="container">
-                <h2 class="section-title">HR 전문성</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>Strategic HR</h3>
-                        <div class="skill-items">
-                            <div class="skill-item">
-                                <span class="skill-name">Strategic Workforce Planning</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">OKR & 성과관리</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">조직 재설계</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">게이미피케이션</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Compliance & Risk</h3>
-                        <div class="skill-items">
-                            <div class="skill-item">
-                                <span class="skill-name">노동법 & 하도급법</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">임금 소송 대응</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">노사관계(ER)</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">리스크 관리</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 92%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Digital HR & Tools</h3>
-                        <div class="skill-items">
-                            <div class="skill-item">
-                                <span class="skill-name">AI 기술 활용 (NotebookLM)</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">HR Tech 구축</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">디지털 온보딩</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 88%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">데이터 기반 의사결정</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 프로젝트 섹션 -->
-        <section id="projects" class="projects">
-            <div class="container">
-                <h2 class="section-title">주요 성과 사례</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <div class="project-placeholder">�</div>
-                        </div>
-                        <div class="project-content">
-                            <h3>조직 효율화 및 성과 공유제</h3>
-                            <p>데이터 기반의 Strategic Workforce Planning으로 조직 슬림화(20%)와 성과급 재원 전환 실현</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Workforce Planning</span>
-                                <span class="tech-tag">Profit Sharing</span>
-                                <span class="tech-tag">Change Management</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="#contact" class="project-link">상담하기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image">
-                            <div class="project-placeholder">🤖</div>
-                        </div>
-                        <div class="project-content">
-                            <h3>AI 기술을 활용한 Digital HR 전환</h3>
-                            <p>NotebookLM, TTS 기술로 사내 지식 자산화 및 디지털 온보딩 구축으로 적응 기간 획기적 단축</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">AI Technology</span>
-                                <span class="tech-tag">Digital HR</span>
-                                <span class="tech-tag">Knowledge Asset</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="#contact" class="project-link">상담하기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image">
-                            <div class="project-placeholder">⚖️</div>
-                        </div>
-                        <div class="project-content">
-                            <h3>노무 컴플라이언스 및 거버넌스 강화</h3>
-                            <p>하도급법 및 파견법 리스크 선제적 관리로 법적 안정성을 비즈니스 자산으로 전환</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Compliance</span>
-                                <span class="tech-tag">Risk Management</span>
-                                <span class="tech-tag">Legal Safety</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="#contact" class="project-link">상담하기</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- 푸터 -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Portfolio. All rights reserved.</p>
+      </div>
+      <div>
+        <div class="tool-cat-title">노무·법무 실무 역량</div>
+        <div class="tool-pills">
+          <span class="tool-pill">근로감독 대응</span>
+          <span class="tool-pill">진정·소송 대응</span>
+          <span class="tool-pill">노사협의회 운영</span>
+          <span class="tool-pill">단체협약 분석</span>
+          <span class="tool-pill">임금교섭</span>
+          <span class="tool-pill">산업안전보건법 실무</span>
         </div>
-    </footer>
+      </div>
+      <div>
+        <div class="tool-cat-title">조직·문화 설계 역량</div>
+        <div class="tool-pills">
+          <span class="tool-pill">OKR 성과관리 체계</span>
+          <span class="tool-pill">게이미피케이션 조직설계</span>
+          <span class="tool-pill">디지털 온보딩 구축</span>
+          <span class="tool-pill">저성과자 관리 프로그램</span>
+          <span class="tool-pill">BSC 기반 목표 설계</span>
+        </div>
+      </div>
+      <div>
+        <div class="tool-cat-title">교육·컨설팅 역량</div>
+        <div class="tool-pills">
+          <span class="tool-pill">취업준비생 진로 컨설팅</span>
+          <span class="tool-pill">취업캠프 기획·운영</span>
+          <span class="tool-pill">인사담당자 대상 강의</span>
+          <span class="tool-pill">노무관리 실무 교육</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">강재현 · Kang Jaehyun</div>
+    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;font-weight:300">HR Strategist · 인사기획 · 노무관리 · 조직문화</p>
+  </div>
+  <div class="footer-contact">
+    <p style="font-size:0.72rem;color:var(--text-muted);font-weight:300">© 2026 강재현. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .comp-card, .timeline-item').forEach((el, i) => {
+  if (el.classList.contains('comp-card') || el.classList.contains('timeline-item')) {
+    el.style.transitionDelay = `${(i % 6) * 0.08}s`;
+  }
+  obs.observe(el);
+});
+
+const cObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.done) {
+      e.target.dataset.done = '1';
+      const target = parseInt(e.target.dataset.target);
+      const dur = 1800; const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        e.target.textContent = Math.round(ease * target);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter').forEach(c => cObs.observe(c));
+
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.borderBottomColor =
+    window.scrollY > 50 ? 'rgba(201,168,76,0.32)' : 'rgba(201,168,76,0.2)';
+}, { passive: true });
+
+document.querySelectorAll('.keyword-item').forEach(item => {
+  item.addEventListener('mouseenter', () => { item.style.animation = 'float 1.5s ease-in-out'; });
+  item.addEventListener('animationend', () => { item.style.animation = ''; });
+});
+</script>
 </body>
 </html>
